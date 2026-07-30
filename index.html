@@ -1,209 +1,493 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cardápio Online</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔥🍔 D&F Lanches | Peça no WhatsApp 🚀</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg:#0f0f0f;
+      --card:#1a1a1a;
+      --red:#d62828;
+      --yellow:#ffcc00;
+      --orange:#ff7b00;
+      --text:#ffffff;
+      --muted:#cfcfcf;
+      --line:#333;
+      --green:#25D366;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #111;
-      color: #fff;
-      padding: 20px;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top,#3a0000 0%,#1a0000 30%,#0f0f0f 70%),
+        linear-gradient(180deg,#120000,#0f0f0f);
+      min-height:100vh;
     }
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: #1b1b1b;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    header{
+      text-align:center;
+      padding:28px 18px 22px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:linear-gradient(180deg,rgba(15,15,15,.98),rgba(15,15,15,.9));
+      border-bottom:1px solid #2b2b2b;
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
     }
 
-    h1 {
-      text-align: center;
-      color: #ffcc00;
-      margin-bottom: 25px;
-      font-size: 2rem;
+    h1{
+      margin:0;
+      color:var(--yellow);
+      font-size:2rem;
+      text-shadow:0 0 10px rgba(255,204,0,.35),0 0 24px rgba(255,123,0,.18);
     }
 
-    .item {
-      border-bottom: 1px solid #333;
-      padding: 15px 0;
+    .subtitle{
+      margin-top:8px;
+      color:#ffd36a;
+      font-weight:bold;
     }
 
-    .item:last-child {
-      border-bottom: none;
+    .flames{
+      margin-top:8px;
+      font-size:1.1rem;
+      letter-spacing:2px;
+      opacity:.9;
     }
 
-    .topo {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
+    .container{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px;
     }
 
-    .nome {
-      font-weight: bold;
-      font-size: 1.05rem;
+    .section-title{
+      color:var(--yellow);
+      margin:26px 0 14px;
+      font-size:1.25rem;
+      text-transform:uppercase;
+      letter-spacing:.5px;
     }
 
-    .preco {
-      color: #ffcc00;
-      font-weight: bold;
-      white-space: nowrap;
+    .card{
+      background:linear-gradient(180deg,#1b1b1b,#161616);
+      border:1px solid #2b2b2b;
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:16px;
+      box-shadow:0 10px 26px rgba(0,0,0,.28);
     }
 
-    .descricao {
-      color: #ccc;
-      margin-top: 6px;
-      line-height: 1.4;
-      font-size: 0.95rem;
+    .row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
     }
 
-    .rodape {
-      text-align: center;
-      margin-top: 30px;
-      color: #aaa;
-      font-size: 0.9rem;
+    .name{
+      font-weight:bold;
+      font-size:1.08rem;
     }
 
-    .botao {
-      display: block;
-      width: 100%;
-      text-align: center;
-      margin-top: 25px;
-      padding: 14px;
-      background: #25D366;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 1rem;
+    .price{
+      color:var(--yellow);
+      font-weight:bold;
+      white-space:nowrap;
+      font-size:1.05rem;
     }
 
-    .botao:hover {
-      background: #1ebc59;
+    .desc{
+      color:var(--muted);
+      margin-top:8px;
+      line-height:1.45;
+      font-size:.95rem;
+    }
+
+    .qty{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+
+    .qty button{
+      width:38px;
+      height:38px;
+      border:none;
+      border-radius:12px;
+      background:var(--red);
+      color:#fff;
+      font-size:1.15rem;
+      cursor:pointer;
+      transition:transform .12s ease, background .2s ease;
+    }
+
+    .qty button:hover{
+      background:#b91f1f;
+      transform:translateY(-1px);
+    }
+
+    .qty .count{
+      min-width:34px;
+      text-align:center;
+      font-weight:bold;
+      font-size:1.05rem;
+    }
+
+    .form{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:8px;
+    }
+
+    .form .full{
+      grid-column:1 / -1;
+    }
+
+    input,select,textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:14px;
+      border:1px solid #3a3a3a;
+      background:#111;
+      color:#fff;
+      outline:none;
+    }
+
+    textarea{
+      resize:vertical;
+      min-height:90px;
+    }
+
+    .summary{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:18px;
+      padding-top:14px;
+      border-top:1px solid var(--line);
+      font-size:1.15rem;
+      font-weight:bold;
+    }
+
+    .total{
+      color:var(--yellow);
+      font-size:1.35rem;
+    }
+
+    .btn{
+      width:100%;
+      margin-top:18px;
+      padding:16px;
+      border:none;
+      border-radius:16px;
+      background:var(--green);
+      color:#fff;
+      font-size:1.08rem;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 10px 22px rgba(37,211,102,.22);
+    }
+
+    .btn:hover{
+      filter:brightness(.96);
+    }
+
+    .footer{
+      text-align:center;
+      color:#aaa;
+      padding:28px 0 34px;
+      font-size:.92rem;
+    }
+
+    @media (max-width:700px){
+      .form{
+        grid-template-columns:1fr;
+      }
+      h1{
+        font-size:1.7rem;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>🔥🍔 D&F Lanches 🍟🔥</h1>
+    <div class="subtitle">Os melhores lanches da cidade • Entrega rápida 🚚</div>
+    <div class="flames">🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥</div>
+  </header>
 
   <div class="container">
-    <h1>🍔 Cardápio Online</h1>
+    <div class="section-title">🍔 Hambúrgueres</div>
 
-    <div class="item">
-      <div class="topo">
-        <div class="nome">X-Tudo</div>
-        <div class="preco">R$ 14,99</div>
+    <div class="card">
+      <div class="row">
+        <div class="name">🍔 X-Tudo</div>
+        <div class="price">R$ 14,99</div>
+      </div>
+      <div class="desc">Pão, hambúrguer, queijo, presunto, ovo, alface, tomate, milho e batata palha.</div>
+      <div class="qty">
+        <button onclick="changeQty('xtudo',-1)">-</button>
+        <div id="xtudo-count" class="count">0</div>
+        <button onclick="changeQty('xtudo',1)">+</button>
       </div>
     </div>
 
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Combo na Caixa (2 Pessoas)</div>
-        <div class="preco">R$ 35,99</div>
+    <div class="section-title">📦 Combos</div>
+
+    <div class="card">
+      <div class="row">
+        <div class="name">📦 Combo 2 Pessoas</div>
+        <div class="price">R$ 35,99</div>
       </div>
-      <div class="descricao">
-        2 X-Tudo + batata frita com cheddar e calabresa.
+      <div class="desc">2 X-Tudo + batata frita com cheddar e calabresa.</div>
+      <div class="qty">
+        <button onclick="changeQty('combo2',-1)">-</button>
+        <div id="combo2-count" class="count">0</div>
+        <button onclick="changeQty('combo2',1)">+</button>
       </div>
     </div>
 
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Combo na Caixa (3 Pessoas)</div>
-        <div class="preco">R$ 53,99</div>
+    <div class="card">
+      <div class="row">
+        <div class="name">📦 Combo 3 Pessoas</div>
+        <div class="price">R$ 53,99</div>
       </div>
-      <div class="descricao">
-        3 X-Tudo + batata frita com cheddar e calabresa.
-      </div>
-    </div>
-
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Combo na Caixa (4 Pessoas)</div>
-        <div class="preco">R$ 70,99</div>
-      </div>
-      <div class="descricao">
-        4 X-Tudo + batata frita com cheddar e calabresa.
+      <div class="desc">3 X-Tudo + batata frita com cheddar e calabresa.</div>
+      <div class="qty">
+        <button onclick="changeQty('combo3',-1)">-</button>
+        <div id="combo3-count" class="count">0</div>
+        <button onclick="changeQty('combo3',1)">+</button>
       </div>
     </div>
 
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Macarrão na Chapa (Marmitex G)</div>
-        <div class="preco">R$ 16,99</div>
+    <div class="card">
+      <div class="row">
+        <div class="name">📦 Combo 4 Pessoas</div>
+        <div class="price">R$ 70,99</div>
+      </div>
+      <div class="desc">4 X-Tudo + batata frita com cheddar e calabresa.</div>
+      <div class="qty">
+        <button onclick="changeQty('combo4',-1)">-</button>
+        <div id="combo4-count" class="count">0</div>
+        <button onclick="changeQty('combo4',1)">+</button>
       </div>
     </div>
 
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Batata no Cone</div>
-        <div class="preco">R$ 13,99</div>
+    <div class="section-title">🍝 Pratos e Porções</div>
+
+    <div class="card">
+      <div class="row">
+        <div class="name">🍝 Macarrão na Chapa (Marmitex G)</div>
+        <div class="price">R$ 16,99</div>
       </div>
-      <div class="descricao">
-        Unidade.
+      <div class="qty">
+        <button onclick="changeQty('macarrao',-1)">-</button>
+        <div id="macarrao-count" class="count">0</div>
+        <button onclick="changeQty('macarrao',1)">+</button>
       </div>
     </div>
 
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Porção de Batata com Cheddar e Bacon (Grande)</div>
-        <div class="preco">R$ 27,99</div>
+    <div class="card">
+      <div class="row">
+        <div class="name">🍟 Batata no Cone</div>
+        <div class="price">R$ 13,99</div>
+      </div>
+      <div class="qty">
+        <button onclick="changeQty('cone',-1)">-</button>
+        <div id="cone-count" class="count">0</div>
+        <button onclick="changeQty('cone',1)">+</button>
       </div>
     </div>
 
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Porção com 50 Mini Salgados</div>
-        <div class="preco">R$ 35,99</div>
+    <div class="card">
+      <div class="row">
+        <div class="name">🧀 Batata Grande com Cheddar e Bacon</div>
+        <div class="price">R$ 27,99</div>
       </div>
-      <div class="descricao">
-        Coxinha, delícia de carne, enroladinho de salsicha,
-        bolinha de presunto e muçarela e travesseirinho de milho.
-      </div>
-    </div>
-
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Porção com 100 Mini Salgados</div>
-        <div class="preco">R$ 69,99</div>
-      </div>
-      <div class="descricao">
-        Coxinha, delícia de carne, enroladinho de salsicha,
-        bolinha de presunto e muçarela e travesseirinho de milho.
+      <div class="qty">
+        <button onclick="changeQty('batata',-1)">-</button>
+        <div id="batata-count" class="count">0</div>
+        <button onclick="changeQty('batata',1)">+</button>
       </div>
     </div>
 
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Vitamina de Açaí (500 ml)</div>
-        <div class="preco">R$ 10,99</div>
+    <div class="section-title">🥟 Mini Salgados</div>
+
+    <div class="card">
+      <div class="row">
+        <div class="name">🥟 Porção 50 Mini Salgados</div>
+        <div class="price">R$ 35,99</div>
+      </div>
+      <div class="desc">Coxinha, delícia de carne, enroladinho de salsicha, bolinha de presunto e muçarela e travesseirinho de milho.</div>
+      <div class="qty">
+        <button onclick="changeQty('salg50',-1)">-</button>
+        <div id="salg50-count" class="count">0</div>
+        <button onclick="changeQty('salg50',1)">+</button>
       </div>
     </div>
 
-    <div class="item">
-      <div class="topo">
-        <div class="nome">Creme de Açaí (500 ml)</div>
-        <div class="preco">R$ 14,99</div>
+    <div class="card">
+      <div class="row">
+        <div class="name">🥟 Porção 100 Mini Salgados</div>
+        <div class="price">R$ 69,99</div>
+      </div>
+      <div class="desc">Coxinha, delícia de carne, enroladinho de salsicha, bolinha de presunto e muçarela e travesseirinho de milho.</div>
+      <div class="qty">
+        <button onclick="changeQty('salg100',-1)">-</button>
+        <div id="salg100-count" class="count">0</div>
+        <button onclick="changeQty('salg100',1)">+</button>
       </div>
     </div>
 
-    <a class="botao" href="https://wa.me/5531999999999" target="_blank">
-      Fazer Pedido pelo WhatsApp
-    </a>
+    <div class="section-title">🍧 Açaí</div>
 
-    <div class="rodape">
-      Faça seu pedido pelo WhatsApp e receba em casa!
+    <div class="card">
+      <div class="row">
+        <div class="name">🍧 Vitamina de Açaí (500 ml)</div>
+        <div class="price">R$ 10,99</div>
+      </div>
+      <div class="qty">
+        <button onclick="changeQty('vitamina',-1)">-</button>
+        <div id="vitamina-count" class="count">0</div>
+        <button onclick="changeQty('vitamina',1)">+</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div class="name">🍨 Creme de Açaí (500 ml)</div>
+        <div class="price">R$ 14,99</div>
+      </div>
+      <div class="qty">
+        <button onclick="changeQty('creme',-1)">-</button>
+        <div id="creme-count" class="count">0</div>
+        <button onclick="changeQty('creme',1)">+</button>
+      </div>
+    </div>
+
+    <div class="section-title">📍 Dados para Entrega</div>
+
+    <div class="card">
+      <div class="form">
+        <div>
+          <input id="nome" placeholder="👤 Seu nome" />
+        </div>
+        <div>
+          <input id="telefone" placeholder="📞 Telefone" />
+        </div>
+        <div class="full">
+          <input id="endereco" placeholder="📍 Rua, número, bairro e cidade" />
+        </div>
+        <div>
+          <select id="pagamento">
+            <option>💳 Pix</option>
+            <option>💵 Dinheiro</option>
+            <option>💳 Cartão</option>
+          </select>
+        </div>
+        <div>
+          <select id="entrega">
+            <option>🚚 Entrega</option>
+            <option>🏪 Retirada no local</option>
+          </select>
+        </div>
+        <div class="full">
+          <textarea id="obs" placeholder="📝 Observações (sem cebola, troco para, etc.)"></textarea>
+        </div>
+      </div>
+
+      <div class="summary">
+        <div>🔥 Total do Pedido</div>
+        <div class="total" id="total">R$ 0,00</div>
+      </div>
+
+      <button class="btn" onclick="enviarWhatsApp()">📲 Finalizar Pedido no WhatsApp</button>
+    </div>
+
+    <div class="footer">
+      ❤️ Obrigado por escolher a D&F Lanches • Feito com muito sabor 🔥
     </div>
   </div>
 
+  <script>
+    const items = {
+      xtudo:{name:"🍔 X-Tudo",price:14.99,qty:0},
+      combo2:{name:"📦 Combo 2 Pessoas",price:35.99,qty:0},
+      combo3:{name:"📦 Combo 3 Pessoas",price:53.99,qty:0},
+      combo4:{name:"📦 Combo 4 Pessoas",price:70.99,qty:0},
+      macarrao:{name:"🍝 Macarrão na Chapa (Marmitex G)",price:16.99,qty:0},
+      cone:{name:"🍟 Batata no Cone",price:13.99,qty:0},
+      batata:{name:"🧀 Batata Grande com Cheddar e Bacon",price:27.99,qty:0},
+      salg50:{name:"🥟 Porção 50 Mini Salgados",price:35.99,qty:0},
+      salg100:{name:"🥟 Porção 100 Mini Salgados",price:69.99,qty:0},
+      vitamina:{name:"🍧 Vitamina de Açaí (500 ml)",price:10.99,qty:0},
+      creme:{name:"🍨 Creme de Açaí (500 ml)",price:14.99,qty:0}
+    };
+
+    function formatBR(v){
+      return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+    }
+
+    function updateTotal(){
+      let total = 0;
+      Object.values(items).forEach(i => total += i.price * i.qty);
+      document.getElementById('total').textContent = formatBR(total);
+      return total;
+    }
+
+    function changeQty(key,delta){
+      items[key].qty = Math.max(0, items[key].qty + delta);
+      document.getElementById(key + '-count').textContent = items[key].qty;
+      updateTotal();
+    }
+
+    function enviarWhatsApp(){
+      const nome = document.getElementById('nome').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const endereco = document.getElementById('endereco').value.trim();
+      const pagamento = document.getElementById('pagamento').value;
+      const entrega = document.getElementById('entrega').value;
+      const obs = document.getElementById('obs').value.trim();
+
+      const total = updateTotal();
+
+      let itens = '';
+      Object.values(items).forEach(i => {
+        if(i.qty > 0){
+          itens += '- ' + i.qty + 'x ' + i.name + ' (' + formatBR(i.price * i.qty) + ')\\n';
+        }
+      });
+
+      if(!itens){
+        alert('Escolha pelo menos um item do cardápio.');
+        return;
+      }
+
+      const msg =
+'🔥 *NOVO PEDIDO - D&F Lanches* 🔥\\n\\n' +
+'👤 *Nome:* ' + (nome || '-') + '\\n' +
+'📞 *Telefone:* ' + (telefone || '-') + '\\n' +
+'📍 *Endereço:* ' + (endereco || '-') + '\\n' +
+'🚚 *Entrega:* ' + entrega + '\\n' +
+'💳 *Pagamento:* ' + pagamento + '\\n\\n' +
+'🍔 *Itens:*\\n' + itens + '\\n' +
+'💰 *Total:* ' + formatBR(total) + '\\n\\n' +
+'📝 *Observações:* ' + (obs || 'Nenhuma');
+
+      const numero = '5531999999999'; // Troque pelo WhatsApp da lanchonete
+      const url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(msg);
+      window.open(url, '_blank');
+    }
+
+    updateTotal();
+  </script>
 </body>
 </html>
