@@ -417,21 +417,41 @@
     </div>
   </div>
 
-  <script>
-    const items = {
-      xtudo:{name:"🍔 X-Tudo",price:14.99,qty:0},
-      combo2:{name:"📦 Combo 2 Pessoas",price:35.99,qty:0},
-      combo3:{name:"📦 Combo 3 Pessoas",price:53.99,qty:0},
-      combo4:{name:"📦 Combo 4 Pessoas",price:70.99,qty:0},
-      macarrao:{name:"🍝 Macarrão na Chapa (Marmitex G)",price:16.99,qty:0},
-      cone:{name:"🍟 Batata no Cone",price:13.99,qty:0},
-      batata:{name:"🧀 Batata Grande com Cheddar e Bacon",price:27.99,qty:0},
-      salg50:{name:"🥟 Porção 50 Mini Salgados",price:35.99,qty:0},
-      salg100:{name:"🥟 Porção 100 Mini Salgados",price:69.99,qty:0},
-      vitamina:{name:"🍧 Vitamina de Açaí (500 ml)",price:10.99,qty:0},
-      creme:{name:"🍨 Creme de Açaí (500 ml)",price:14.99,qty:0}
-    };
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyAGkiEjcT0cJd0OGD_u392SJk2Nkn_8yL0",
+  authDomain: "df-lanches-pedidos.firebaseapp.com",
+  projectId: "df-lanches-pedidos",
+  storageBucket: "df-lanches-pedidos.firebasestorage.app",
+  messagingSenderId: "143793298127",
+  appId: "1:143793298127:web:13ccff816a3f3d8bb9b5ba"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.db = db;
+window.fbCollection = collection;
+window.fbAddDoc = addDoc;
+
+console.log("Firebase conectado!");
+</script>
+<script>const items = {
+  xtudo:{name:"🍔 X-Tudo",price:14.99,qty:0},
+  combo2:{name:"📦 Combo 2 Pessoas",price:35.99,qty:0},
+  combo3:{name:"📦 Combo 3 Pessoas",price:53.99,qty:0},
+  combo4:{name:"📦 Combo 4 Pessoas",price:70.99,qty:0},
+  macarrao:{name:"🍝 Macarrão na Chapa",price:16.99,qty:0},
+  cone:{name:"🍟 Batata no Cone",price:13.99,qty:0},
+  batata:{name:"🧀 Batata Cheddar Bacon",price:27.99,qty:0},
+  salg50:{name:"🥟 50 Mini Salgados",price:35.99,qty:0},
+  salg100:{name:"🥟 100 Mini Salgados",price:69.99,qty:0},
+  vitamina:{name:"🍧 Vitamina de Açaí",price:10.99,qty:0},
+  creme:{name:"🍨 Creme de Açaí",price:14.99,qty:0}
+};
     function formatBR(v){
       return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
     }
@@ -449,7 +469,8 @@
       updateTotal();
     }
 
-    function enviarWhatsApp(){
+    async function enviarWhatsApp(){
+
   const nome = document.getElementById('nome').value.trim();
   const telefone = document.getElementById('telefone').value.trim();
   const endereco = document.getElementById('endereco').value.trim();
@@ -460,39 +481,72 @@
   const total = updateTotal();
 
   let itens = '';
+
   Object.values(items).forEach(i => {
     if(i.qty > 0){
-      itens += `- ${i.qty}x ${i.name} (${formatBR(i.price * i.qty)})
-`;
+      itens += `- ${i.qty}x ${i.name} (${formatBR(i.price * i.qty)})\n`;
     }
   });
+
 
   if(!itens){
     alert('Escolha pelo menos um item do cardápio.');
     return;
   }
 
-  const msg = `🔥 *NOVO PEDIDO - D&F Lanches* 🔥
 
-👤 *Nome:* ${nome || '-'}
-📞 *Telefone:* ${telefone || '-'}
-📍 *Endereço:* ${endereco || '-'}
-🚚 *Entrega:* ${entrega}
-💳 *Pagamento:* ${pagamento}
+  const msg = [
+"🔥 *NOVO PEDIDO - D&F Lanches* 🔥",
+"",
+`👤 *Nome:* ${nome || '-'}`,
+`📞 *Telefone:* ${telefone || '-'}`,
+`📍 *Endereço:* ${endereco || '-'}`,
+`🚚 *Entrega:* ${entrega}`,
+`💳 *Pagamento:* ${pagamento}`,
+"",
+"🍔 *Itens:*",
+itens,
+"",
+`💰 *Total:* ${formatBR(total)}`,
+"",
+`📝 *Observações:* ${obs || 'Nenhuma'}`,
+"",
+"Obrigado por escolher a D&F Lanches! 🍔🔥"
+].join("\n");
 
-🍔 *Itens:*
-${itens}
-💰 *Total:* ${formatBR(total)}
+  try {
 
-📝 *Observações:* ${obs || 'Nenhuma'}
+  await window.fbAddDoc(
+    window.fbCollection(window.db,"pedidos"),
+    {
+      nome: nome,
+      telefone: telefone,
+      endereco: endereco,
+      pagamento: pagamento,
+      entrega: entrega,
+      observacao: obs,
+      itens: itens,
+      total: total,
+      data: new Date()
+    }
+  );
 
-Obrigado por escolher a D&F Lanches! 🍔🔥`;
+  console.log("Pedido salvo no Firebase!");
 
-  const numero = '5531991320382'; // TROQUE PELO SEU NÚMERO
-  const url = `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
+} catch(error){
+
+  console.error("Erro Firebase:", error);
+  alert("Erro ao salvar pedido no sistema.");
+
 }
 
+  const numero = '5531991320382';
+
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
+
+  window.open(url, '_blank');
+
+}
     updateTotal();
   </script>
 </body>
