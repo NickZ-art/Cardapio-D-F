@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardápio Online</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #1b1b1b;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffcc00;
+      margin-bottom: 25px;
+      font-size: 2rem;
+    }
+
+    .item {
+      border-bottom: 1px solid #333;
+      padding: 15px 0;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nome {
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+
+    .preco {
+      color: #ffcc00;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .descricao {
+      color: #ccc;
+      margin-top: 6px;
+      line-height: 1.4;
+      font-size: 0.95rem;
+    }
+
+    .rodape {
+      text-align: center;
+      margin-top: 30px;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .botao {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 25px;
+      padding: 14px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .botao:hover {
+      background: #1ebc59;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🍔 Cardápio Online</h1>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">X-Tudo</div>
+        <div class="preco">R$ 14,99</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Combo na Caixa (2 Pessoas)</div>
+        <div class="preco">R$ 35,99</div>
+      </div>
+      <div class="descricao">
+        2 X-Tudo + batata frita com cheddar e calabresa.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Combo na Caixa (3 Pessoas)</div>
+        <div class="preco">R$ 53,99</div>
+      </div>
+      <div class="descricao">
+        3 X-Tudo + batata frita com cheddar e calabresa.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Combo na Caixa (4 Pessoas)</div>
+        <div class="preco">R$ 70,99</div>
+      </div>
+      <div class="descricao">
+        4 X-Tudo + batata frita com cheddar e calabresa.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Macarrão na Chapa (Marmitex G)</div>
+        <div class="preco">R$ 16,99</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Batata no Cone</div>
+        <div class="preco">R$ 13,99</div>
+      </div>
+      <div class="descricao">
+        Unidade.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Porção de Batata com Cheddar e Bacon (Grande)</div>
+        <div class="preco">R$ 27,99</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Porção com 50 Mini Salgados</div>
+        <div class="preco">R$ 35,99</div>
+      </div>
+      <div class="descricao">
+        Coxinha, delícia de carne, enroladinho de salsicha,
+        bolinha de presunto e muçarela e travesseirinho de milho.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Porção com 100 Mini Salgados</div>
+        <div class="preco">R$ 69,99</div>
+      </div>
+      <div class="descricao">
+        Coxinha, delícia de carne, enroladinho de salsicha,
+        bolinha de presunto e muçarela e travesseirinho de milho.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Vitamina de Açaí (500 ml)</div>
+        <div class="preco">R$ 10,99</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="topo">
+        <div class="nome">Creme de Açaí (500 ml)</div>
+        <div class="preco">R$ 14,99</div>
+      </div>
+    </div>
+
+    <a class="botao" href="https://wa.me/5531999999999" target="_blank">
+      Fazer Pedido pelo WhatsApp
+    </a>
+
+    <div class="rodape">
+      Faça seu pedido pelo WhatsApp e receba em casa!
+    </div>
+  </div>
+
+</body>
+</html>
