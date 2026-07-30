@@ -450,42 +450,48 @@
     }
 
     function enviarWhatsApp(){
-      const nome = document.getElementById('nome').value.trim();
-      const telefone = document.getElementById('telefone').value.trim();
-      const endereco = document.getElementById('endereco').value.trim();
-      const pagamento = document.getElementById('pagamento').value;
-      const entrega = document.getElementById('entrega').value;
-      const obs = document.getElementById('obs').value.trim();
+  const nome = document.getElementById('nome').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+  const endereco = document.getElementById('endereco').value.trim();
+  const pagamento = document.getElementById('pagamento').value;
+  const entrega = document.getElementById('entrega').value;
+  const obs = document.getElementById('obs').value.trim();
 
-      const total = updateTotal();
+  const total = updateTotal();
 
-      let itens = '';
-      Object.values(items).forEach(i => {
-        if(i.qty > 0){
-          itens += '- ' + i.qty + 'x ' + i.name + ' (' + formatBR(i.price * i.qty) + ')\\n';
-        }
-      });
-
-      if(!itens){
-        alert('Escolha pelo menos um item do cardápio.');
-        return;
-      }
-
-      const msg =
-'🔥 *NOVO PEDIDO - D&F Lanches* 🔥\\n\\n' +
-'👤 *Nome:* ' + (nome || '-') + '\\n' +
-'📞 *Telefone:* ' + (telefone || '-') + '\\n' +
-'📍 *Endereço:* ' + (endereco || '-') + '\\n' +
-'🚚 *Entrega:* ' + entrega + '\\n' +
-'💳 *Pagamento:* ' + pagamento + '\\n\\n' +
-'🍔 *Itens:*\\n' + itens + '\\n' +
-'💰 *Total:* ' + formatBR(total) + '\\n\\n' +
-'📝 *Observações:* ' + (obs || 'Nenhuma');
-
-      const numero = '5531991320382'; // Troque pelo WhatsApp da lanchonete
-      const url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(msg);
-      window.open(url, '_blank');
+  let itens = '';
+  Object.values(items).forEach(i => {
+    if(i.qty > 0){
+      itens += `- ${i.qty}x ${i.name} (${formatBR(i.price * i.qty)})
+`;
     }
+  });
+
+  if(!itens){
+    alert('Escolha pelo menos um item do cardápio.');
+    return;
+  }
+
+  const msg = `🔥 *NOVO PEDIDO - D&F Lanches* 🔥
+
+👤 *Nome:* ${nome || '-'}
+📞 *Telefone:* ${telefone || '-'}
+📍 *Endereço:* ${endereco || '-'}
+🚚 *Entrega:* ${entrega}
+💳 *Pagamento:* ${pagamento}
+
+🍔 *Itens:*
+${itens}
+💰 *Total:* ${formatBR(total)}
+
+📝 *Observações:* ${obs || 'Nenhuma'}
+
+Obrigado por escolher a D&F Lanches! 🍔🔥`;
+
+  const numero = '5531991320382'; // TROQUE PELO SEU NÚMERO
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
 
     updateTotal();
   </script>
